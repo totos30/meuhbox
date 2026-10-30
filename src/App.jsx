@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Scene from './Scene.jsx'
 import AddSound, { imageFromBuffer } from './AddSound.jsx'
 import { ANIMALS, CUSTOM_COLORS, drawCustomLabel, drawLabel } from './labels.js'
-import { MAX_SECONDS, decodeAudio, deformation, playCry, playFlipSigh, playSample, unlockAudio } from './audio.js'
+import { MAX_SECONDS, decodeAudio, deformation, loadCries, playCry, playFlipSigh, playSample, unlockAudio } from './audio.js'
 import { deleteSound, loadSounds, saveSound } from './store.js'
 
 const DOWN = -0.45 // seuil « tête en bas »
@@ -42,6 +42,7 @@ export default function App() {
 
   useEffect(() => {
     document.fonts?.ready.then(() => setFontsReady(true))
+    loadCries()
   }, [])
 
   // ——— Étiquettes des sons intégrés ———
