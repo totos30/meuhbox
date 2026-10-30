@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Scene from './Scene.jsx'
 import AddSound, { imageFromBuffer } from './AddSound.jsx'
 import { ANIMALS, CUSTOM_COLORS, drawCustomLabel, drawLabel } from './labels.js'
-import { MAX_SECONDS, decodeAudio, deformation, loadCries, playCry, playFlipSigh, playSample, unlockAudio } from './audio.js'
+import { MAX_SECONDS, MIN_RATE, decodeAudio, deformation, loadCries, playCry, playFlipSigh, playSample, unlockAudio } from './audio.js'
 import { deleteSound, loadSounds, saveSound } from './store.js'
 
 const DOWN = -0.45 // seuil « tête en bas »
@@ -242,7 +242,7 @@ export default function App() {
     return flipped ? 'Retournée ! Glisse-la à nouveau pour la remettre debout.' : 'Glisse la boîte vers le bas pour la retourner.'
   }, [sensor, sensorOn, flipped])
 
-  const ticks = [0, 2, 4, 6, 8, 10]
+  const ticks = [0, 1, 2, 3, 4, 5]
 
   return (
     <div className="app">
@@ -269,7 +269,7 @@ export default function App() {
           <ol>
             <li>Choisis un son, ou ajoute le tien : son image se plaque sur la boîte.</li>
             <li>Retourne ton téléphone tête en bas et garde-le ainsi.</li>
-            <li>Remets-le à l’endroit : la boîte crie. Plus tu as attendu, plus le cri sort lent, grave et fort : jusqu’à la vitesse × 0,7 après {MAX_SECONDS} s.</li>
+            <li>Remets-le à l’endroit : la boîte crie. Plus tu as attendu, plus le cri sort lent, grave et fort : jusqu’à la vitesse × {fmt(MIN_RATE)} après {MAX_SECONDS} s.</li>
           </ol>
           {!sensorOn && (
             <button type="button" id="sensor-btn" className="btn primary" onClick={enableSensors} disabled={sensor === 'waiting'}>

@@ -1,5 +1,5 @@
 // Lecture des cris (MP3 via Web Audio) + déformation selon la durée de retournement.
-// k ∈ [0,1] : 0 = son normal, 1 = déformation maximale (une octave plus grave, plus fort, plus long).
+// k ∈ [0,1] : 0 = son normal, 1 = déformation maximale (environ 9 demi-tons plus grave, plus fort, plus long).
 
 import cat from './sons/cat.mp3'
 import cow from './sons/cow.mp3'
@@ -21,13 +21,13 @@ export function unlockAudio() {
 // Fichiers des cris intégrés, par id d'animal (voir labels.js).
 const CRY_FILES = { vache: cow, mouton: sheep, chevre: goat, chat: cat }
 
-export const MAX_SECONDS = 10
+export const MAX_SECONDS = 5
 
 // Règle : la vitesse baisse proportionnellement au temps retourné.
-// 0 s → vitesse 1 ; 10 s (plafond) → vitesse 0,7.
-export const MIN_RATE = 0.7
+// 0 s → vitesse 1 ; 5 s (plafond) → vitesse 0,6.
+export const MIN_RATE = 0.6
 
-// Paramètres dérivés de k (= temps retourné / 10 s) — exposés pour l'affichage.
+// Paramètres dérivés de k (= temps retourné / 5 s) — exposés pour l'affichage.
 // Ralentir un son baisse sa hauteur et l'allonge, comme une bande ralentie.
 export function deformation(k) {
   const rate = 1 - (1 - MIN_RATE) * k
