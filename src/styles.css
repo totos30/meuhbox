@@ -238,11 +238,12 @@ h2 {
   color: var(--ink);
 }
 .field input[type="text"]:focus-visible { outline: 3px solid var(--lid); outline-offset: 1px; }
-.field input[type="file"] { font: inherit; font-size: 13px; max-width: 100%; color: var(--muted); }
-.field input[type="file"]::file-selector-button {
+.picker { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.file-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip-path: inset(50%); }
+.pick-btn, .icon-btn {
   font: inherit;
+  font-size: 13px;
   font-weight: 700;
-  margin-right: 10px;
   padding: 7px 12px;
   border-radius: 9px;
   border: 1.5px solid var(--line);
@@ -250,9 +251,15 @@ h2 {
   color: var(--ink);
   cursor: pointer;
 }
+.icon-btn { display: inline-grid; place-items: center; width: 42px; height: 37px; padding: 0; }
+.file-input:focus-visible + label, .icon-btn:focus-visible { outline: 3px solid var(--lid); outline-offset: 1px; }
+/* appuyer-maintenir : pas de menu contextuel, de sélection ni de défilement pendant l'appui */
+.rec { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.rec.is-on { background: var(--tin); border-color: var(--tin); color: #FFFFFF; animation: rec-pulse 1s ease-in-out infinite; }
+@keyframes rec-pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--tin) 30%, transparent); } }
+.pick-status { flex: 1 1 8em; min-width: 0; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.pick-status.is-rec { color: var(--tin); font-weight: 700; font-variant-numeric: tabular-nums; }
 .help { margin: 0; font-size: 12px; color: var(--muted); }
-.file-ok { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--muted); min-width: 0; }
-.file-ok span { min-width: 0; overflow-wrap: anywhere; }
 .link { font: inherit; font-weight: 700; background: none; border: 0; padding: 0; color: var(--lid); cursor: pointer; }
 .strip { width: 100%; height: auto; aspect-ratio: 2048 / 652; border-radius: 8px; max-width: 100%; }
 .error { margin: 0; font-size: 13px; font-weight: 600; color: var(--tin); }
@@ -274,4 +281,5 @@ h2 {
 }
 @media (prefers-reduced-motion: reduce) {
   .gauge-fill { transition: none; }
+  .rec.is-on { animation: none; }
 }
